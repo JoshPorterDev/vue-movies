@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Vue js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" rel="stylesheet"> 
+    <!-- Custom css -->
+    <link rel="stylesheet" href="style.css">
+    <title>Vue-Movies</title>
+</head>
+<body>
+    <div id="app">
+      <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a v-on:click="viewMovies" class="navbar-brand" href="#">Vue-Movies</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a v-on:click="viewMovies" class="nav-link" href="#">Movies</a>
+              </li>
+              <li class="nav-item">
+                <a v-on:click="viewCart" class="nav-link" href="#">Cart</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- Modal -->
+        <div class="container">
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content bg-dark">
+                <div class="modal-header">
+                  <h5 class="modal-title text-white" id="exampleModalLabel">Added to cart</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p class="text-white" id="itemAddedToCart"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                  <button v-on:click="viewCart" type="button" class="btn btn-primary" data-dismiss="modal">View Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cart -->
+          <div class="cart hidden">
+            <table class="table">
+              <thead>
+                <tr class="bg-dark">
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Ticket Type</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in cart">
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.movie }}</td>
+                  <td>{{ item.childOrAdult }}</td>
+                  <td>${{ item.price }} x {{ item.quantity }}</td>
+                </tr>
+                <tr class="bg-dark">
+                  <th scope="col">Subtotal</th>
+                  <td></td>
+                  <td></td>
+                  <th scope="col">${{ subtotal }}</th>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <button class="btn btn-primary btn-lg mx-auto">Check out</button>
+            </div>
+          </div>
+          <!-- Movies section -->
+          <div class="movies">
+            <div class="container-fluid">
+              <div id="card-columns" class="card-columns">
+                <div id="movieCard" v-for="movie in movies" class="card bg-dark" style="width: 18rem;">
+                  <img class="card-img-top" :src="movie.poster" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 id="title" class="card-title text-white">{{ movie.title }}</h5>
+                    <p id="overview" class="card-text text-white">{{ movie.overview }}</p>
+                    <div class="form-group ">
+                      <label for="quantityForm">Quantity</label>
+                      <select id="quantityForm" class="form-control" id="quantityForm">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                    <button :id="movie.id" v-on:click="addToCart" href="#" class="btn text-white btn-primary" data-toggle="modal" data-target="#exampleModal">Adult ticket</button>
+                    <button :id="movie.id" v-on:click="addToCart" href="#" class="btn text-white btn-primary" data-toggle="modal" data-target="#exampleModal">Child ticket</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Optional JavaScript -->
+      <!-- Axios js -->
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <!-- Custom js -->
+      <script src="main.js"></script>
+    
+</body>
+</html>

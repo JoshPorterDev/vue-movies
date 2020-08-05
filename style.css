@@ -1,0 +1,16 @@
+nav {
+    margin-bottom: 20px;
+}
+
+body {
+    background: #1a1a1d;
+    font-family: 'Raleway', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+li {
+    list-style: none;
+}
